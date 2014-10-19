@@ -1,0 +1,7 @@
+- Reverse Words in a String
+After the loop of breaking up the input string into words, don't
+forget to process the last word.
+
+- Evaluate Reverse Polish Notation
+For operator - and /, pay attention to the order of the operands
+from the stack.
