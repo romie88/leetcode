@@ -17,34 +17,36 @@ class Solution {
 public:
     int evalRPN( std::vector< std::string > & tokens ) {
 		std::stack< int > s;
-		for ( auto token : tokens )
+		for ( const auto & token : tokens )
 		{
-			int op1, op2;
-			if ( token == "+" )
+			int num;
+			if ( isInt( token, num ) )
 			{
-				getTwoOps( s, op2, op1 );
-				s.push( op1 + op2 );
-			}
-			else if ( token == "-" )
-			{
-				getTwoOps( s, op2, op1 );
-				s.push( op1 - op2 );
-			}
-			else if ( token == "*" )
-			{
-				getTwoOps( s, op2, op1 );
-				s.push( op1 * op2 );
-			}
-			else if ( token == "/" )
-			{
-				getTwoOps( s, op2, op1 );
-				s.push( op1 / op2 );
+				s.push( num );
 			}
 			else
 			{
-				int i;
-				getInt( token, i );
-				s.push( i );
+				int op1, op2;
+				if ( token == "+" )
+				{
+					getTwoOps( s, op2, op1 );
+					s.push( op1 + op2 );
+				}
+				else if ( token == "-" )
+				{
+					getTwoOps( s, op2, op1 );
+					s.push( op1 - op2 );
+				}
+				else if ( token == "*" )
+				{
+					getTwoOps( s, op2, op1 );
+					s.push( op1 * op2 );
+				}
+				else if ( token == "/" )
+				{
+					getTwoOps( s, op2, op1 );
+					s.push( op1 / op2 );
+				}
 			}
 		}
 		return s.top();
@@ -58,9 +60,9 @@ private:
 		s.pop();
 	}
 
-	void getInt( const std::string & s, int & i )
+	bool isInt( const std::string & s, int & i )
 	{
 		std::istringstream iss( s );
-		iss >> i;
+		return iss >> i;
 	}
 };
