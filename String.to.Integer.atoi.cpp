@@ -65,7 +65,7 @@ public:
 			{
 				if ( result <= ( ( std::numeric_limits< int >::max() - sign * digit ) / 10 ) )
 				{
-					result = result * 10 + sign * digit;	
+					result = result * 10 + sign * digit;
 				}
 				else
 				{
