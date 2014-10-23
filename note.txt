@@ -1,7 +1,26 @@
+- Find Minimum in Rotated Sorted Array
+	binary search the pivot
+
+- Maximum Product Subarray
+	dynamic programming tracking both max postive and min negative product ending at the current index	
+
 - Reverse Words in a String
-After the loop of breaking up the input string into words, don't
-forget to process the last word.
+	after the loop of breaking up the input string into words, don't forget to process the remaining of the input string.
 
 - Evaluate Reverse Polish Notation
-For operator - and /, pay attention to the order of the operands
-from the stack.
+	for operator - and /, pay attention to the order of the operands from the stack.
+
+- Max Points on a Line
+	dont forget duplication
+
+- Sqrt(x)
+	binary search (not trivial); watch out that mid * mid overflow
+	Newton iteration method
+
+- Valid Number
+	finite automata
+	direct
+
+- String to Integer (atoi)
+	watch out the overflow/underflow
+	
