@@ -23,4 +23,24 @@
 
 - String to Integer (atoi)
 	watch out the overflow/underflow
-	
+
+- Roman to Integer
+- Integer to Roman
+
+- Reverse Integer
+	cannot overcome the overflow issue happening when i == INT_MIN and i = -i because -INT_MIN cannot be represented in int
+	note that % operator in C++ has some implemenation defined behavior when one of the operands is negative
+
+- Pow(x,n)
+	recursive call pow( x, n ) but half of n but with x * x!!!
+
+- Plus One
+	when iterating through std::vector by index, be careful using std::vector< T >::size_type, as it is unsigned, looping from size() - 1 down to 0 is infinite!!!
+
+- Permutation Sequence
+	not comfortable with have an std::vector to keep all the numbers but erase them one by one in a loop which is O(n^2)
+
+-  Palindrome Number
+	OJ decides negative numbers are not palindrome number
+
+- 
