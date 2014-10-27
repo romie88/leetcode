@@ -40,7 +40,15 @@
 - Permutation Sequence
 	not comfortable with have an std::vector to keep all the numbers but erase them one by one in a loop which is O(n^2)
 
--  Palindrome Number
+- Palindrome Number
 	OJ decides negative numbers are not palindrome number
 
-- 
+- Multiply Strings
+	it is complicated that 9335 * 0 cannot produce 0000 and 6 * 305 must append extra zero.
+
+- Divide Two Integers
+	overflow issue handled by using long long; using operator << to enlarge the divisor until it gets close to the dividend
+
+- Add Two Numbers
+
+- Add Binary
