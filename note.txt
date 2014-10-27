@@ -50,5 +50,8 @@
 	overflow issue handled by using long long; using operator << to enlarge the divisor until it gets close to the dividend
 
 - Add Two Numbers
+	iterates two linked lists and builds another list at the same time. Zhang Lei adds a dummy head node to handle the initial loop iteration difficulties
 
 - Add Binary
+	similar to other integers addition/multiplication problems.
+
