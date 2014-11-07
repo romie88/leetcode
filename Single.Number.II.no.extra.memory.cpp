@@ -19,19 +19,18 @@ public:
 		//since every element appears three times
 		//except one
 		//the summation mod by 3 is the result's kth bit
-		int count[ 32 ] = { 0 };
-		for ( int i = 0; i < n; ++i )
+		int count[ 32 ] = { 0 };//actually a single variable is enough
+		int result = 0;
+		for ( int k = 0; k < 32; ++k )
 		{
-			for ( int k = 0; k < 32; ++k )
+			for ( int i = 0; i < n; ++i )
 			{
 				count[ k ] += ( ( A[ i ] & ( 1 << k ) ) != 0 );
 			}
+
+			result |= ( ( count[ k ] % 3 ) << k );
 		}
 		
-		int result = 0;
-		for ( int k = 0; k < 32; ++k )
-			result |= ( count[ k ] % 3 ) << k;
-
 		return result;
     }
 };
