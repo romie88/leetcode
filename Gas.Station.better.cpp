@@ -13,6 +13,8 @@
 //Note:
 //The solution is guaranteed to be unique.
 
+//Tags: Greedy
+
 #include <vector>
 
 class Solution {
