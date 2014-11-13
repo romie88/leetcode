@@ -1,3 +1,24 @@
+- Min Stack [ Stack, Data Structure ] 2014-11-09
+    A stack with push(), pop(), top(), getMin() in O(1).
+    Use an extra stack with top element being the current minimum element.
+    Very similar we can have Max Stack.
+    However can we extend the question to Min Queue/Max Queue???
+    I searched on Web. It turns out Min Queue is a Google interview question:
+    
+    Implement a queue in which push_rear(), pop_front() and get_min() are all
+    constant time operations.
+    
+    There are two ways to solve this problem. The first method is to use an
+    extra deque which keeps the minimum on the front end of the deque. Check
+    the code in
+    
+    extension/Min.Queue.cpp
+    extension/Min.Queue.t.cpp
+    
+    However, pop_front() is amortized O(1).
+
+
+
 - Find Minimum in Rotated Sorted Array
 	binary search the pivot
 
@@ -55,3 +76,16 @@
 - Add Binary
 	similar to other integers addition/multiplication problems.
 
+
+- Surrounded Regions (Breadth-first Search) 2013-02-21
+
+	The most intuitive way is to scan all the nodes, if meet an 'O', then look
+    for a path leading to the boundary (all four directions are checked, DFS
+    can be used), if cannot find one, this node has no way out, flip it to 'X'.
+    However this cannot pass the larget test case (250x250 matrix).
+
+    Think the problem from out to inside. If an 'O' on the boundary then it is
+    not flipped. We can BFS from each 'O' on the boundary, mark all its
+    neighbors which are 'O's as no-need-to-flip.
+
+    BFS uses a queu. DFS uses a stack.
