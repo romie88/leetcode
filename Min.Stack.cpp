@@ -41,6 +41,10 @@ public:
     int getMin() {
         return d_min_stack.top();
     }
+
+    bool empty() {
+        return d_stack.empty();
+    }
 private:
     std::stack< int > d_stack;
     //top of the d_min_vec is the minimum element of d_vec

@@ -1,4 +1,5 @@
 - Min Stack [ Stack, Data Structure ] 2014-11-09
+
     A stack with push(), pop(), top(), getMin() in O(1).
     Use an extra stack with top element being the current minimum element.
     Very similar we can have Max Stack.
@@ -12,12 +13,41 @@
     extra deque which keeps the minimum on the front end of the deque. Check
     the code in
     
-    extension/Min.Queue.cpp
-    extension/Min.Queue.t.cpp
+    extension/Min.Queue.deque.cpp
     
     However, pop_front() is amortized O(1).
+    
+    The second method is to use two min stacks. Check the code in
 
+    extension/Min.Queue.two.min.stacks.cpp
 
+    There is another interesting but related problem Sliding Window Maximum.
+
+    A long array A[] is given to you. There is a sliding window of size w
+    which is moving from the very left of the array to the very right. You
+    can only see the w numbers in the window. Each time the sliding window
+    moves rightwards by one position. Following is an example:
+
+    The array is [1 3 -1 -3 5 3 6 7], and w is 3.
+
+    Window position                Max
+    ---------------               -----
+    [1  3  -1] -3  5  3  6  7       3
+     1 [3  -1  -3] 5  3  6  7       3
+     1  3 [-1  -3  5] 3  6  7       5
+     1  3  -1 [-3  5  3] 6  7       5
+     1  3  -1  -3 [5  3  6] 7       6
+     1  3  -1  -3  5 [3  6  7]      7
+    
+    Input: A long array A[], and a window width w
+    Output: An array B[], B[i] is the maximum value of from A[i] to A[i+w-1]
+    Requirement: Find a good optimal way to get B[i]
+    
+    The obvious brute force solution with run time complexity of O(nw) is
+    definitely not efficient enough. Every time the window is moved, you have
+    to search for a total of w elements in the window.
+
+    
 
 - Find Minimum in Rotated Sorted Array
 	binary search the pivot
