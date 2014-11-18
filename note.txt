@@ -119,3 +119,36 @@
     neighbors which are 'O's as no-need-to-flip.
 
     BFS uses a queu. DFS uses a stack.
+
+
+- Pascal's Triangle II (Array) 2012-10-28
+    
+    A careful implementation using only one std::vector< int > of size
+    rowIndex + 1 can be found in Pascals.Triangle.II.cpp.
+    
+    
+- Pascal's Triangle (Array) 2012-10-28
+
+    Note that the input numRows can be zero. The output should be [[]].
+    I must always consider all potential inputs!!!
+
+- Populating Next Right Pointers in Each Node II (Tree, Depth-first Search) 2012-10-18
+    
+    1. still can be solved by recursive call
+    2. loop level by level
+    
+    
+- Populating Next Right Pointers in Each Node (Tree, Depth-first Search) 2012-10-18
+    
+    1. The most intuitive way is to use a queue to traverse the tree level
+       by level.
+    2. The next better way is to use DFS recursive but connect nodes on
+       the same level in the meanwhile.
+    3. The third way is to loop level by level and connect nodes on the
+       same level.
+
+
+    
+    
+    
+    
