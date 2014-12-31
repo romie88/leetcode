@@ -1,4 +1,4 @@
-//10 Regular Expression Matching [Hard]
+//10 Regular Expression Matching [ Hard ]
 //
 //Implement regular expression matching with support for '.' and '*'.
 //
