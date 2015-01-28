@@ -1,4 +1,4 @@
-//Construct Binary Tree from Inorder and Postorder Traversal
+//106 Construct Binary Tree from Inorder and Postorder Traversal [ Medium ]
 //2012-09-30 Medium
 //
 //Given inorder and postorder traversal of a tree, construct the binary tree.
