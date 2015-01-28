@@ -39,6 +39,7 @@
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <stack>
 
 /**
  * Definition for binary tree
@@ -113,5 +114,41 @@ private:
         levels[ level ].push_back( root->val );
         level_order_DFS_impl( root->left, levels, level + 1 );
         level_order_DFS_impl( root->right, levels, level + 1 );
+    }
+    
+    //Annie Kim github
+    void zigzag_level_order_two_stacks(
+            TreeNode * root,
+            std::vector< std::vector< int > > & levels ) {
+        
+        if ( ! root ) return;
+        
+        bool left_to_right = true;
+        std::stack< TreeNode * > s[ 2 ];
+        int last = 0;
+        int curr = 1;
+
+        s[ last ].push( root );
+        std::vector< int > one_level;
+        while ( ! s[ last ].empty() ) {
+            TreeNode * p = s[ last ].top();
+            s[ last ].pop();
+            if ( p ) {
+                one_level.push_back( p->val );
+                if ( left_to_right ) {
+                    if ( p->left )  s[ curr ].push( p->left );
+                    if ( p->right ) s[ curr ].push( p->right );
+                } else {
+                    if ( p->right ) s[ curr ].push( p->right );
+                    if ( p->left )  s[ curr ].push( p->left );
+                }
+            }
+            if ( s[ last ].empty() ) {
+                left_to_right = ! left_to_right;
+                levels.push_back( one_level );
+                one_level.clear();
+                std::swap( last, curr );
+            }
+        }
     }
 };
