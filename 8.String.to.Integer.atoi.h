@@ -1,4 +1,4 @@
-//String to Integer (atoi)
+//8 String to Integer (atoi) [ Easy ]
 //
 //Implement atoi to convert a string to an integer.
 //
@@ -9,6 +9,12 @@
 //Notes: It is intended for this problem to be specified
 //vaguely (ie, no given input specs). You are responsible
 //to gather all the input requirements up front.
+//
+//Update (2015-02-10):
+//The signature of the C++ function had been updated.
+//If you still see your function signature accepts a const char *
+//argument, please click the reload button to reset your code
+//definition.
 //
 //Requirements for atoi:
 //
@@ -30,15 +36,24 @@
 //If no valid conversion could be performed, a zero value is returned.
 //If the correct value is out of the range of representable values,
 //INT_MAX (2147483647) or INT_MIN (-2147483648) is returned.
+//
+//Tags: Math, String
+//
+//Solution:
+//To deal with overflow, inspect the current number before multiplication.
+//If the current number is greater than 214748364, we know it is going to
+//overflow. On the other hand, if the current number is equal to 214748364,
+//we know that it will overflow only when the current digit is greater than
+//or equal to 8.
 
 #include <cctype>
 #include <limits>
 
 class Solution {
 public:
-    int atoi( const char * str ) {
+    int atoi( const std::string & str ) {
         
-		const char * p = str;
+		const char * p = str.c_str();
 		//skip spaces
 		while ( std::isspace( *p ) )
 			++p;
@@ -65,7 +80,7 @@ public:
 			{
 				if ( result <= ( ( std::numeric_limits< int >::max() - sign * digit ) / 10 ) )
 				{
-					result = result * 10 + sign * digit;
+					result = result * 10 + digit;
 				}
 				else
 				{
@@ -77,7 +92,7 @@ public:
 			{
 				if ( result >= ( ( std::numeric_limits< int >::min() - sign * digit ) / 10 ) )
 				{
-					result = result * 10 + sign * digit;
+					result = result * 10 - digit;
 				}
 				else
 				{
