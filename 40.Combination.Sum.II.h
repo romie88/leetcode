@@ -1,22 +1,24 @@
 /**
- * Algorithms 39 Combination Sum                                         Medium
+ * Algorithms 40 Combination Sum II                                     Medium
+ *
+ * Given a collection of candidate numbers (C) and a target number (T), find
+ * all unique combinations in C where the candidate numbers sums to T.
  * 
- * Given a set of candidate numbers (C) and a target number (T), find all
- * unique combinations in C where the candidate numbers sums to T.
- *
- * The same repeated number may be chosen from C unlimited number of times.
- *
+ * Each number in C may only be used once in the combination.
+ * 
  * Note:
- * * All numbers (including target) will be positive integers.
- * * Elements in a combination (a1, a2, … , ak) must be in non-descending order.
- *   (ie, a1 ≤ a2 ≤ … ≤ ak).
- * * The solution set must not contain duplicate combinations.
  * 
- * For example, given candidate set 2,3,6,7 and target 7, 
- * A solution set is: 
- * [7] 
- * [2, 2, 3] 
+ * All numbers (including target) will be positive integers.
+ * Elements in a combination (a1, a2, … , ak) must be in non-descending order. (ie, a1 ≤ a2 ≤ … ≤ ak).
+ * The solution set must not contain duplicate combinations.
  * 
+ * For example, given candidate set 10,1,2,7,6,1,5 and target 8,
+ * A solution set is:
+ * [1, 7]
+ * [1, 2, 5]
+ * [2, 6]
+ * [1, 1, 6] 
+ *
  * Tags: Array, Backtracking
  */
 
@@ -26,7 +28,7 @@
 class Solution {
 public:
     std::vector< std::vector< int > >
-        combinationSum( std::vector< int > & candidates, const int target ) {
+        combinationSum2( std::vector< int > & candidates, const int target ) {
         
         std::sort( candidates.begin(), candidates.end() );
         int sum = 0;
@@ -61,12 +63,13 @@ private:
             if ( sum + candidates[ i ] <= target ) {
                 sum += candidates[ i ];
                 v.push_back( candidates[ i ] );
-                //still put in i since the same number can be picked unlimited
-                //times
-                combination_sum_helper( candidates, target, i, sum, v, results );
+                //since the same number cannot be picked again
+                //put in i + 1
+                combination_sum_helper( candidates, target, i + 1, sum, v, results );
                 sum -= candidates[ i ];
                 v.pop_back();
             }
         }
     }
 };
+
