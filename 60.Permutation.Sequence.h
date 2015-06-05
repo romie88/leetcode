@@ -20,12 +20,14 @@
  * Tags: Backtracking, Math
  */
 
+#include <string>
+
 class Solution {
 public:
     /**
      * O(n^2) runtime, O(n) space
      */
-    string getPermutation(int n, int k) {
+    std::string getPermutation(int n, int k) {
         std::string s;
         --k;//make k to be in range [ 0, n - 1 ]
         int nfactor = 1;
