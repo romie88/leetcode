@@ -50,19 +50,24 @@ public:
      * from the right to the left we know this permutation is
      * in completely descending order. All we need to do is
      * reverse them.
+     *
+     * Update: when we find the first reverse pair we can reverse
+     * the range [ i, n - 1 ] then binary search to find the first
+     * element from the range [ i, n - 1 ] which is greater than
+     * nums[ i - 1 ] to swap with nums[ i - 1 ] if i > 0.
+     * This simplifies code a little bit.
      */
     void nextPermutation( std::vector< int > & nums ) {
         int i = nums.size() - 1;
         for ( ; i >= 1; --i )
             if ( nums[ i ] > nums[ i - 1 ] )
                 break;
-        if ( i == 0 ) {
-            reverse( nums, i, nums.size() - 1 );
-        } else {
+        //reverse anyway
+        reverse( nums, i, nums.size() - 1 );
+        if ( i > 0 ) {
             int j = i - 1;
             int k = find_position( nums, i, nums.size() - 1, nums[ j ] );
             std::swap( nums[ k ], nums[ j ] );
-            reverse( nums, i, nums.size() - 1 );
         }
     }
 private:
@@ -75,10 +80,11 @@ private:
         while ( s <= e ) {
             int m = ( s + e ) / 2;
             if ( nums[ m ] > target )
-                s = m + 1;
-            else
                 e = m - 1;
+            else
+                s = m + 1;
         }
-        return s - 1;
+        return s;
     }
 };
+
