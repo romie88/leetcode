@@ -22,6 +22,13 @@ public:
         return num_trees( n );
     }
 private:
+    /**
+     * O( n^2 ) runtime, O( n ) space
+     * C_0 = 1, C_(n+1) = C_0 * C_n + C_1 * C_(n-1) + ... + C_n * C_0
+     * This is one of the definitions of Catalan Number.
+     * If we use the formula of Catalan Number to calculate it directly
+     * O( n ) runtime, O( 1 ) space
+     */
     int num_trees( int n ) {
         std::vector< int > n_trees( n + 1 , 0 );
         n_trees[ 0 ] = 1;
