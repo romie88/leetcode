@@ -16,7 +16,7 @@
  * 
  * Note: Do not use the eval built-in library function.
  * 
- * Tags: Stack, Math
+ * Tags:
  */
 
 #include <string>
