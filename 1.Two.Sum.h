@@ -22,7 +22,9 @@
 
 class Solution {
 public:
-    std::vector< int > twoSum( std::vector< int > & nums, int target ) {
+    std::vector< int > twoSum(
+            const std::vector< int > & nums,
+            const int                  target ) {
         return two_sum_by_hash_table( nums, target );
     }
 private:
