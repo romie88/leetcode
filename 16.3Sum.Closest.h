@@ -14,6 +14,7 @@
 
 #include <vector>
 #include <limits>
+#include <algorithm>
 
 class Solution {
 public:
