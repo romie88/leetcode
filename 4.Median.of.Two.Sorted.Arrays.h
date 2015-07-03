@@ -14,7 +14,7 @@ class Solution {
 public:
     double findMedianSortedArrays( const std::vector< int > & nums1,
                                    const std::vector< int > & nums2 ) {
-        return find_median_of_two_sorted_arrays_impl_1( nums1, nums2 );
+        return find_median_of_two_sorted_arrays_impl_2( nums1, nums2 );
     }
 public:
     /**
@@ -180,10 +180,10 @@ public:
         int kb = k - ka;
         if ( nums1[ s1 + ka - 1 ] < nums2[ s2 + kb - 1 ] )
             return find_kth_smallest_of_two_sorted_arrays_helper_2(
-                    nums1, s1 + ka, e1, nums2, s2, e2, k - ka );
+                    nums1, s1 + ka, e1, nums2, s2, s2 + kb - 1, k - ka );
         else if ( nums1[ s1 + ka - 1 ] > nums2[ s2 + kb - 1 ] )
             return find_kth_smallest_of_two_sorted_arrays_helper_2(
-                    nums1, s1, e1, nums2, s2 + kb, e2, k - kb );
+                    nums1, s1, s1 + ka - 1, nums2, s2 + kb, e2, k - kb );
         else
             return nums1[ s1 + ka - 1 ];
     }
