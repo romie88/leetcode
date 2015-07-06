@@ -1,5 +1,5 @@
 /**
- * 8 String to Integer (atoi)                                              Easy 
+ * Algorithms 8 String to Integer (atoi)                                   Easy 
  * 
  * Implement atoi to convert a string to an integer.
  * 
