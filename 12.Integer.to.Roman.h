@@ -1,5 +1,5 @@
 /**
- * 12 Integer to Roman                                                   Medium
+ * Algorithms 12 Integer to Roman                                        Medium
  * 
  * Given an integer, convert it to a roman numeral.
  * 
