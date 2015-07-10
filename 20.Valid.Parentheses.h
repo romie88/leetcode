@@ -8,6 +8,7 @@
  * valid but "(]" and "([)]" are not.
  *
  * Tags: Stack, String
+ * Similar Problems: (M) Generate Parentheses, (H) Longest Valid Parentheses
  */
 
 #include <stack>
@@ -20,9 +21,9 @@ public:
             if ( stk.empty() || c == '(' || c == '{' || c == '[' )
                 stk.push( c );
             else {
-                if ( ( c == ')' && stk.top() == '(' )
-                  || ( c == '}' && stk.top() == '{' )
-                  || ( c == ']' && stk.top() == '[' ) )
+                if ( ( c == ')' && ! stk.empty() && stk.top() == '(' )
+                  || ( c == '}' && ! stk.empty() && stk.top() == '{' )
+                  || ( c == ']' && ! stk.empty() && stk.top() == '[' ) )
                     stk.pop();
                 else
                     return false;
