@@ -6,6 +6,7 @@
  * longest palindromic substring.
  * 
  * Tags: String
+ * Similar Problems: (H) Shortest Palindrome
  */
 
 #include <string>

@@ -7,6 +7,7 @@
  * substring is "b", with the length of 1.
  * 
  * Tags: Hash Table, Two Pointers, String
+ * Similar Problems: (H) Longest Substring with At Most Two Distinct Characters
  */
 
 #include <string>

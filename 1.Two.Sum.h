@@ -14,6 +14,8 @@
  * Output: index1=1, index2=2
  * 
  * Tags: Array, Hash Table
+ * Similar Problems: (M) 3Sum, (M) 4Sum, (M) Two Sum II - Input array is sorted
+ *                   (E) Two Sum III - Data structure design
  */
 
 #include <vector>

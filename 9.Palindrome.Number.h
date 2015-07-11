@@ -20,6 +20,7 @@
  * There is a more generic way of solving this problem.
  * 
  * Tags: Math
+ * Similar Problems: (E) Palindrome Linked List
  */
 
 class Solution {
@@ -32,13 +33,14 @@ public:
 		
         int p = 1;
         int x2 = x;
-        while ( x2 ) {
+        //if the condition is x2 instead of x2 > 9
+        //p will overflow
+        while ( x2 > 9 ) {
             p *= 10;
             x2 /= 10;
         }
-        if ( x ) p /= 10;
         
-        while ( p != 1 ) {
+        while ( p > 1 ) {
             if ( x / p != x % 10 ) return false;
             x %= p;
             x /= 10;

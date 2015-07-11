@@ -27,6 +27,7 @@
  * Test cases had been added to test the overflow behavior.
  * 
  * Tags: Math
+ * Similar Problems: (E) String to Integer (atoi)
  */
 
 #include <limits>

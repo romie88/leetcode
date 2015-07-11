@@ -35,6 +35,7 @@
  * INT_MAX (2147483647) or INT_MIN (-2147483648) is returned.
  * 
  * Tags: Math, String
+ * Similar Problems: (E) Reverse Integer, (H) Valid Number
  */
 
 #include <string>

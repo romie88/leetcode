@@ -20,6 +20,7 @@
  * in any order you want.
  * 
  * Tags: Backtracking, String
+ * Similar Problems: (M) Generate Parentheses, (M) Combination Sum
  */
 
 #include <string>
