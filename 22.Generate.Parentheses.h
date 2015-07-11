@@ -9,6 +9,8 @@
  * "((()))", "(()())", "(())()", "()(())", "()()()"
  *
  * Tags: Backtracking, String
+ * Similar Problems: (M) Letter Combinations of a Phone Number,
+ *                   (E) Valid Parentheses
  */
 
 #include <vector>
@@ -17,32 +19,28 @@
 class Solution {
 public:
     std::vector< std::string > generateParenthesis( int n ) {
-        std::string s;
+        std::string one_result;
         std::vector< std::string > results;
-        generate_parentheses_impl( n, n, s, results );
+        generate_parentheses_impl( n, n, one_result, results );
         return results;
     }
 private:
-    void generate_parentheses_impl( int ln, int rn, std::string & s,
+    void generate_parentheses_impl( int ln, int rn, std::string & one_result,
                                     std::vector< std::string > & results ) {
         if ( ln == 0 ) {
-            s.append( rn, ')');
-            results.push_back( s );
-            s.resize( s.length() - rn );
+            one_result.append( rn, ')');
+            results.push_back( one_result );
+            one_result.resize( one_result.length() - rn );
             return;
         }
-        if ( ln == rn ) {
-            s += '(';
-            generate_parentheses_impl( ln - 1, rn, s, results );
-            s.pop_back();
-        } else if ( ln < rn ) {
-            s += '(';
-            generate_parentheses_impl( ln - 1, rn, s, results );
-            s.pop_back();
-            
-            s += ')';
-            generate_parentheses_impl( ln, rn - 1, s, results );
-            s.pop_back();
+        
+        one_result += '(';
+        generate_parentheses_impl( ln - 1, rn, one_result, results );
+        one_result.pop_back();
+        if ( ln < rn ) {
+            one_result += ')';
+            generate_parentheses_impl( ln, rn - 1, one_result, results );
+            one_result.pop_back();
         }
     }
 };
