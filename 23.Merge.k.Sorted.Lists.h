@@ -5,6 +5,7 @@
  * describe its complexity.
  *
  * Tags: Divide and Conquer, Linked List, Heap
+ * Similar Problems: (E) Merge Two Sorted Lists
  */
 
 #include <vector>
@@ -21,7 +22,7 @@
 class Solution {
 public:
     ListNode * mergeKLists( std::vector< ListNode * > & lists ) {
-        return merge_k_lists_by_DnC( lists );
+        return merge_k_lists_by_DnC_2( lists );
     }
 private:
     /**
@@ -86,5 +87,20 @@ private:
         if ( l1 ) p->next = l1;
         if ( l2 ) p->next = l2;
         return dummy_head.next;
+    }
+    /**
+     * My Divide-and-Conquer implementation
+     */
+    ListNode * merge_k_lists_by_DnC_2( std::vector< ListNode * > & lists ) {
+        return merge_k_lists_by_DnC_2_impl( lists, 0, lists.size() - 1 );
+    }
+    ListNode * merge_k_lists_by_DnC_2_impl(
+            const std::vector< ListNode * > & lists,
+            const int s, const int e ) {
+        if ( s > e ) return nullptr;
+        if ( s == e ) return lists[ s ];
+        int m = ( s + e ) / 2;
+        return merge( merge_k_lists_by_DnC_2_impl( lists, s, m ),
+                      merge_k_lists_by_DnC_2_impl( lists, m + 1, e ) );
     }
 };
