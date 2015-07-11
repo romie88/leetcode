@@ -10,6 +10,7 @@
  * values in the list, only nodes itself can be changed.
  *
  * Tags: Linked List
+ * Similar Problems: (H) Reverse Nodes in k-Group
  */
 
 /**
@@ -24,16 +25,16 @@ class Solution {
 public:
     ListNode * swapPairs( ListNode * head ) {
         ListNode dummy_head( 0 );
+        dummy_head.next = head;
         ListNode * p = &dummy_head;
-        p->next = head;
-        ListNode * q1 = head;
-        while ( q1 && q1->next ) {
-            ListNode * tmp = q1->next->next;
-            p->next = q1->next;
-            q1->next->next = q1;
-            q1->next = tmp;
-            p = q1;
-            q1 = tmp;
+        ListNode * q = p->next;
+        while ( q && q->next ) {
+            ListNode * tmp = q->next->next;
+            p->next = q->next;
+            q->next->next = q;
+            q->next = tmp;
+            p = q;
+            q = tmp;
         }
         return dummy_head.next;
     }
