@@ -8,6 +8,7 @@
  * beyond the new length.
  *
  * Tags: Array, Two Pointers
+ * Similar Problems: (E) Remove Linked List Elements
  */
 
 #include <vector>
