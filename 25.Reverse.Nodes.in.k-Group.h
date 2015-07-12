@@ -19,6 +19,7 @@
  * For k = 3, you should return: 3->2->1->4->5
  *
  * Tags: Linked List
+ * Similar Problems: (M) Swap Nodes in Pairs
  */
 
 /**
@@ -74,3 +75,47 @@ private:
         return prev;
     }
 };
+//A simpler implementation
+#if 0
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if ( k <= 0 ) throw std::out_of_range( "k is not positive" );
+        if ( k == 1 ) return head;
+        
+        ListNode dummy_head( 0 );
+        dummy_head.next = head;
+        ListNode * p = &dummy_head;
+        while ( p->next ) {
+            ListNode * q = p;
+            int k2 = k;
+            //move q forward k steps to see if we have k nodes to reverse
+            while ( q && k2 ) {
+                q = q->next;
+                --k2;
+            }
+            if ( q == nullptr ) break;
+            
+            ListNode * next_start = q->next;
+            q->next = nullptr;
+            ListNode * origin_head = p->next;
+            reverse( p->next );
+            p->next = q;//q points the last node before reverse which is the head now
+            origin_head->next = next_start;
+            p = origin_head;
+        }
+        return dummy_head.next;
+    }
+private:
+    ListNode * reverse( ListNode * p ) {
+        ListNode * prev = nullptr;
+        while ( p ) {
+            ListNode * p_next = p->next;
+            p->next = prev;
+            prev = p;
+            p = p_next;
+        }
+        return prev;
+    }
+};
+#endif
