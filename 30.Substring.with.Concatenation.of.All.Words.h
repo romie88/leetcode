@@ -14,64 +14,161 @@
  * (order does not matter). 
  *
  * Tags: Hash Table, Two Pointers, String
+ * Similar Problems: (H) Minimum Window Substring
  */
 
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <stdexcept>
 
 class Solution {
 public:
     std::vector< int > findSubstring( const std::string & s,
-                                      std::vector< std::string > & words ) {
-        std::vector< int > results;
-        find_substring_impl_2( s, words, results );
-        return results;
+                                      const std::vector< std::string > & words ) {
+        return find_substring_moving_window( s, words );
     }
 private:
     /**
-     * Relatively straightforward implementation using two hashtables
-     * and scan through the string to check the concatenation of all words.
+     * O( n * m * w ) runtime, O( m * w ) space - brute force
+     * where n is the length of s, m is the size of words, and, w is the length
+     * of each word.
      */
-    void find_substring_impl_1( const std::string                & s,
-                                const std::vector< std::string > & words,
-                                std::vector< int >               & results ) {
-        const int num_words = words.size();
-        if ( num_words == 0 ) return;
-        const int word_len  = words[ 0 ].length();
-        if ( s.length() < num_words * word_len )
-            return;
-
-        std::unordered_map< std::string, int > word_count;
+    std::vector< int > find_substring_brute_force_iterative(
+            const std::string                & s,
+            const std::vector< std::string > & words ) {
+        if ( words.empty() ) throw std::invalid_argument( "words is empty" );
+        
+        //m is a map from word to word counts
+        std::unordered_map< std::string, int > m;
         for ( const auto & w : words )
-            ++word_count[ w ];
-
-        for ( int i = 0; i <= s.length() - num_words * word_len; ++i )
-            if ( match_all_words( s, i, num_words, word_len, word_count ) )
-                results.push_back( i );
-
-        return;
-    }
-    bool match_all_words( const std::string & s,
-                          const int           i,
-                          const int           num_words,
-                          const int           word_len,
-                          const std::unordered_map< std::string, int > & word_count ) {
-        if ( i + num_words * word_len > s.length() ) return false;
-
-        std::unordered_map< std::string, int > word_count2;
-        for ( int k = 0; k < num_words; ++k ) {
-            const std::string & w = s.substr( i + k * word_len, word_len );
-            const auto it = word_count.find( w );
-            if ( it == word_count.end() )
-                return false;
-            ++word_count2[ w ];
-            if ( word_count2[ w ] > it->second )
-                return false;
+            ++m[ w ];
+        
+        std::vector< int > results;
+        const int word_len = words[ 0 ].length();
+        const int num_words = words.size();
+        const int s_len = s.length();
+        for ( int i = 0; i <= s_len - word_len * num_words; ++i ) {
+            //this copy is very expensive
+            std::unordered_map< std::string, int > m2 = m;
+            bool matched = true;
+            for ( int j = 0; j < num_words; ++j ) {
+                const std::string & w = s.substr( i + j * word_len, word_len );
+                const auto it = m2.find( w );
+                if ( it == m2.end() ) {
+                    matched = false;
+                    break;
+                } else {
+                    if ( it->second ) --it->second;
+                    else {
+                        matched = false;
+                        break;
+                    }
+                }
+            }
+            if ( matched ) results.push_back( i );
         }
-        return true;
+        return results;
     }
-
+    /**
+     * A recursive brute force implementation saves the copying of the hash map.
+     */
+    std::vector< int > find_substring_brute_force_recursive(
+            const std::string                & s,
+            const std::vector< std::string > & words ) {
+        if ( words.empty() ) throw std::invalid_argument( "words is empty" );
+        
+        //m is a map from word to word counts
+        std::unordered_map< std::string, int > m;
+        for ( const auto & w : words )
+            ++m[ w ];
+        
+        std::vector< int > results;
+        const int word_len = words[ 0 ].length();
+        const int num_words = words.size();
+        const int s_len = s.length();
+        for ( int i = 0; i <= s_len - word_len * num_words; ++i ) {
+            if ( helper( s, i, m, num_words, word_len ) )
+                results.push_back( i );
+        }
+        return results;
+    }
+    bool helper( const std::string & s, const int i,
+                 std::unordered_map< std::string, int > & m,
+                 const int num_words,
+                 const int word_len ) {
+        if ( num_words == 0 ) return true;
+        const std::string & w = s.substr( i, word_len );
+        const auto it = m.find( w );
+        if ( it != m.end() && it->second > 0 ) {
+            --it->second;
+            bool b = helper( s, i + word_len, m, num_words - 1, word_len );
+            ++it->second;
+            return b;
+        } else
+            return false;
+    }
+    /**
+     * O( m * n ) runtime, O( m * w ) space - a moving window approach
+     * where n is the length of s, m is the size of words, and, w is the length
+     * of each word.
+     */
+    std::vector< int > find_substring_moving_window(
+            const std::string                & s,
+            const std::vector< std::string > & words ) {
+        if ( words.empty() ) throw std::invalid_argument( "words is empty" );
+        
+        //m is a map from word to word counts
+        std::unordered_map< std::string, int > m;
+        for ( const auto & w : words )
+            ++m[ w ];
+        
+        std::vector< int > results;
+        const int word_len = words[ 0 ].length();
+        const int num_words = words.size();
+        const int s_len = s.length();
+        //in order to try the moving window approach we move the window
+        //by length of a word; to avoid missing any potential solution
+        //we check all the starting indices from i = 0 to word_len.
+        //The runtime for this outer loop is num_words.
+        for ( int i = 0; i < word_len; ++i ) {
+            std::unordered_map< std::string, int > m2;
+            int win_start = i;
+            int count = 0;//number of words matched
+            //The runtime for this inner loop is
+            //2 * word_len * ( s_len / word_len ) (floor)
+            //because each word enters and leaves the window just once
+            for ( int j = i; j <= s_len - word_len; j += word_len ) {
+                const std::string & w = s.substr( j, word_len );
+                const auto it = m.find( w );
+                if ( it != m.end() ) {
+                    ++m2[ w ];
+                    if ( m2[ w ] <= m[ w ] ) ++count;
+                    else {
+                        //while ( m2[ w ] > m[ w ] ] )
+                        for ( int k = win_start; ; k += word_len ) {
+                            const std::string & w2 = s.substr( k, word_len );
+                            --m2[ w2 ];
+                            if ( w2 == w ) {
+                                win_start = k + word_len;
+                                break;
+                            }
+                            --count;
+                        }
+                    }
+                    if ( count == num_words )
+                        results.push_back( win_start );
+                } else {
+                    m2.clear();
+                    win_start = j + word_len;
+                    count = 0;
+                }
+            }
+        }
+        return results;
+    }
+};
+#if 0
     /**
      * A complicated but much faster implemenation from leetcode discussion.
      * I haven't commented the code and just pasted it here for further study.
@@ -152,4 +249,4 @@ private:
         }
         return;
     }
-};
+#endif
