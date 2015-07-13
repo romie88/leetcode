@@ -16,6 +16,7 @@
  * 1,1,5 -> 1,5,1
  *
  * Tags: Array
+ * Similar Problems: (M) Permutations, (M) Permutation Sequence
  */
 
 #include <vector>
