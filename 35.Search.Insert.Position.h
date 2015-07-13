@@ -14,6 +14,7 @@
  * [1,3,5,6], 0 -> 0
  *
  * Tags: Array, Binary Search
+ * Similar Problems: (M) Search for a Range
  */
 
 #include <vector>
@@ -30,19 +31,19 @@ private:
      * Find the insert position for the given target in the
      * given array. The array can have duplicates. And the
      * insert position i must have the following property:
-     *
+     * 
      * A[ i ] >= target && A[ i - 1 ] < target   if i >  0
      * A[ i ] >= target                          if i == 0
      * A[ k ] <  target for all k = 0, ..., A.size() - 1
      *                                           if i == A.size()
-     *
+     * 
      * That is to find the left-most insert position i and
      * the target is inserted before the index i.
-     *
+     * 
      * The implementation is as following. Now we need to
      * analyze this implementation and prove it correctly
      * find the insert index i.
-     *
+     * 
      * When the loop terminates, L > R.
      * Here there is a very important observation about the
      * following implementation: L = R + 1 when the loop
@@ -53,11 +54,11 @@ private:
      * If in the last iteration L < R, let's consider
      * the details:
      * If L + 1 = R, then L == M < R. If L gets updated,
-     * L will be the same at R. If R gets updated, R will
+     * L will be the same as R. If R gets updated, R will
      * be L - 1.
      * If L + 1 < R, then no matter what the loop cannot
      * terminate by this iteration.
-     *
+     * 
      * Hence when the loop terminates L = R + 1.
      * Let L_old and R_old to be the value of L and R in
      * the last iteration.
