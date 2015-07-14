@@ -9,6 +9,7 @@
  * Write a function to determine if a given target is in the array.
  * 
  * Tags: Array, Binary Search
+ * Similar Problems: (H) Search in Rotated Sorted Array
  */
 
 #include <vector>
@@ -30,7 +31,7 @@ public:
      *
      * When duplicates are allowed, nums[ M ] == nums[ R ] != target,
      * we don't know which half of the array to discard. All we can do is
-     * to discard nums[ R ].
+     * to discard nums[ R ]. And discard nums[ R ] is not a problem because
      */
     bool search_iterative( const std::vector< int > & nums, const int target ) {
         int L = 0;
