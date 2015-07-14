@@ -11,6 +11,8 @@
  * You may assume no duplicate exists in the array.
  * 
  * Tags: Array, Binary Search
+ * Simiar Problems: (M) Search in Rotated Sorted Array II
+ *                  (M) Find Minimum in Rotated Sorted Array
  */
 
 #include <vector>
@@ -25,6 +27,12 @@ public:
      * The key observation is that by comparing nums[ M ] with nums[ R ]
      * we know half of the array is sorted and we do not need to check
      * if the array is rotated or not at all.
+     * 
+     * Question! Why we must compare nums[ M ] with nums[ R ]???
+     * There is a good reason. Try the input [ 3, 1 ] and target 1 with
+     * the implementation of comparing nums[ M ] with nums[ R ].
+     * You will find that when L == M it will have problems.
+     * 
      * When we know which half is sorted, we just need to check if target
      * is within the range of the sorted half or not and discard half of
      * the array.
