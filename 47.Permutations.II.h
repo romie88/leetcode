@@ -9,6 +9,7 @@
  * [1,1,2], [1,2,1], and [2,1,1].
  *
  * Tags: Backtracking
+ * Similar Problems: (M) Permutations
  */
 
 #include <vector>
