@@ -25,6 +25,9 @@ public:
         return can_jump( nums );
     }
 private:
+    /**
+     * O( n ) runtime, O( 1 ) space - linear search greedy
+     */
     bool can_jump( const std::vector< int > & nums ) {
         const int n = nums.size();
         int R = 0;//R is the right most index we can reach
