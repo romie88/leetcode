@@ -14,6 +14,7 @@
  * the divide and conquer approach, which is more subtle.
  *
  * Tags: Divide and Conquer, Array, Dynamic Programming
+ * Similar Problems: (M) Maximum Product Subarray
  */
 
 #include <vector>
