@@ -58,8 +58,7 @@ private:
         solve_n_queens_impl( n, 0, column_flag, one_result, results );
     }
     /**
-     * one_result[ i ] means one queen is placed at the i-th row and
-     * one_result[ i ]-th column.
+     * one_result[ i ] means one queen is placed at the i-th row
      * 
      * flag[ i ] means the i-th column has a queen already.
      */
@@ -75,6 +74,7 @@ private:
             return;
         }
         
+        //we are at the i-th row and we try columns one by one
         for ( int j = 0; j < n; ++j ) {
             if ( column_flag[ j ] == false
               && is_diagonal_ok( one_result, i, j ) ) {
