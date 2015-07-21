@@ -37,6 +37,7 @@
  * ]
  *
  * Tags: Backtracking
+ * Similar Problems: (H) N-Queens II
  */
 
 #include <string>
