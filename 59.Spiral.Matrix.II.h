@@ -15,13 +15,18 @@
  * ]
  *
  * Tags: Array
+ * Similar Problems: (M) Spiral Matrix
  */
 
 #include <vector>
 
 class Solution {
 public:
-    std::vector< std::vector< int > > generateMatrix( int n ) {
+    std::vector< std::vector< int > > generateMatrix( const int n ) {
+        return generate_matrix_impl_2( n );
+    }
+private:
+    std::vector< std::vector< int > > generate_matrix_impl_1( int n ) {
         std::vector< std::vector< int > >
                 matrix( n, std::vector< int >( n, 0 ) );
         int k = 1;
@@ -39,6 +44,27 @@ public:
                     matrix[ j ][ i ] = k++;
             }
             n -= 2;
+        }
+        return matrix;
+    }
+    std::vector< std::vector< int > > generate_matrix_impl_2( int n ) {
+        std::vector< std::vector< int > >
+                matrix( n, std::vector< int >( n, 0 ) );
+        int row = 0;
+        int col = -1;
+        int k   = 1;
+        while ( true ) {
+            if ( n == 0 ) break;
+            for ( int i = 0; i < n; ++i )
+                matrix[ row ][ ++col ] = k++;
+            if ( --n == 0 ) break;
+            for ( int i = 0; i < n; ++i )
+                matrix[ ++row ][ col ] = k++;
+            for ( int i = 0; i < n; ++i )
+                matrix[ row ][ --col ] = k++;
+            if ( --n == 0 ) break;
+            for ( int i = 0; i < n; ++i )
+                matrix[ --row ][ col ] = k++;
         }
         return matrix;
     }
