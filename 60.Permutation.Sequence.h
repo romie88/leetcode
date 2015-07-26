@@ -13,11 +13,12 @@
  * "312"
  * "321"
  *
- * Given n and k, return the kth permutation sequence.
+ * Given n and k, return the k-th permutation sequence.
  * 
  * Note: Given n will be between 1 and 9 inclusive.
  * 
  * Tags: Backtracking, Math
+ * Similar Problems: (M) Next Permutation, (M) Permutations
  */
 
 #include <string>
@@ -25,37 +26,30 @@
 class Solution {
 public:
     /**
-     * O(n^2) runtime, O(n) space
+     * O( n ^ 2 ) runtime, O( n ) space
      */
-    std::string getPermutation(int n, int k) {
+    std::string getPermutation( int n, int k ) {
         std::string s;
-        --k;//make k to be in range [ 0, n - 1 ]
-        int nfactor = 1;
-        for ( int i = 2; i <= n; ++i )
-            nfactor *= i;
-        
-        std::vector< bool > flag( n, false );
-        for ( int i = 0; i < n; ++i ) {
-            nfactor /= ( n - i );
-            int j = k / nfactor;
-            
-            /**
-             * Here I use a vector of flags.
-             * As an alternative we can use vector< char >
-             * and keep erasing the char in index j.
-             */
-            int p = 0;
-            int unused = 0;
-            for ( p = 0; p < n; ++p ) {
-                if ( ! flag[ p ] ) {
-                    if ( j == unused ) break;
-                    else ++unused;
-                }
+        int nf = 1;
+        for ( int i = 1; i <= n - 1; ++i ) {
+            nf *= i;
+            s += ( '0' + i );
+        }
+        s += ( '0' + n );
+        //nf == ( n - 1 )! and s == "123 ... n"
+        if ( k <= 0 || k > nf * n )
+            throw std::out_of_range( "k is out of range" );
+        --k;//to make k in the range of [ 0 ... n - 1 ]
+        for ( int i = 0; i < n - 1; ++i ) {
+            int index = k / nf + i;
+            char c = s[ index ];
+            while ( index >= i + 1 ) {
+                s[ index ] = s[ index - 1 ];
+                --index;
             }
-            
-            s.push_back( '0' + p + 1 );
-            flag[ p ] = true;
-            k %= nfactor;
+            s[ i ] = c;
+            k %= nf;
+            nf /= ( n - 1 - i );
         }
         return s;
     }
