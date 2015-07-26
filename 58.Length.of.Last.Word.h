@@ -16,7 +16,7 @@
  * Tags: String
  */
 
-#include <string>
+#include <cctype>
 
 class Solution {
 public:
@@ -24,7 +24,6 @@ public:
         int i = s.length() - 1;
         while ( i >= 0 && std::isspace( s[ i ] ) )
             --i;
-        if ( i < 0 ) return 0;
         int j = i;
         while ( j >= 0 && ! std::isspace( s[ j ] ) )
             --j;
