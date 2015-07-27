@@ -7,6 +7,7 @@
  * Note: You can only move either down or right at any point in time.
  * 
  * Tags: Array, Dynamic Programming
+ * Similar Problems: (M) Unique Paths, (H) Dungeon Game
  */
 
 #include <vector>
@@ -62,6 +63,6 @@ private:
             }
         }
         
-        return P[ N - 1  ];
+        return P[ N - 1 ];
     }
 };
