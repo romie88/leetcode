@@ -10,7 +10,7 @@
  * 
  * How many possible unique paths are there?
  * 
- *  S| | | | | | |
+ * |S| | | | | | |
  * ---------------
  * | | | | | | | |
  * ---------------
@@ -21,6 +21,7 @@
  * Note: m and n will be at most 100.
  * 
  * Tags: Array, Dynamic Programming
+ * Similar Problems: (M) Unique Paths II, (M) Minimum Path Sum, (H) Dungeon Game
  */
 
 #include <vector>
@@ -28,7 +29,7 @@
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-        return unique_paths_DP2( m, n );
+        return unique_paths_by_combination( m, n );
     }
 private:
     /**
@@ -91,9 +92,7 @@ private:
         }
         return P[ 0 ][ 0 ];
     }
-    /**
-     * O( m * n ) runtime, O( n ) space - Optimized bottom-up dynamic programming
-     */
+    
     int unique_paths_DP2( int m, int n ) {
         std::vector< int > P( n, 0 );
         P[ n - 1 ] = 1;
@@ -103,5 +102,23 @@ private:
             }
         }
         return P[ 0 ];
+    }
+
+    /**
+     * O( m ) runtime, O( 1 ) space
+     * 
+     * Totally the robot needs to move m - 1 steps down and n - 1 steps right.
+     * Thus the number of unique paths is C( m + n - 2, m - 1 ).
+     */
+    int unique_paths_by_combination( int m, int n ) {
+        int i = 1;
+        int j = n;
+        long long result = 1;
+        while ( i < m ) {
+            result *= j;
+            result /= i;
+            ++j; ++i;
+        }
+        return result;
     }
 };
