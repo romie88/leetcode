@@ -44,60 +44,50 @@ public:
     std::vector< std::string >
     fullJustify( std::vector< std::string > & words,
                  const int                    maxWidth ) {
-        std::vector< std::string > lines;
-        int total_length = 0;
+        const int n = words.size();
+        std::vector< std::string > results;
         int i = 0;
-        while ( i < words.size() ) {
-            total_length += words[ i ].length();
-            int start = i;
-            ++i;
-            while ( i < words.size()
-                 && total_length + 1 + words[ i ].length() <= maxWidth ) {
-                total_length += 1 + words[ i ].length();
-                ++i;
-            }
-            
-            std::string one_line;
-            if ( i == words.size() ) {
-                one_line += words[ start ];
-                for ( int k = start + 1; k < i; ++k ) {
-                    one_line += ' ';
-                    one_line += words[ k ];
+        while ( i < n ) {
+            std::string line;
+            //assume words[ i ].length() <= maxWidth
+            int count     = words[ i ].length();
+            int words_len = words[ i ].length();
+            int j = i + 1;
+            while ( j < n ) {
+                count += 1 + words[ j ].length();
+                words_len += words[ j ].length();
+                if ( count > maxWidth ) {
+                    words_len -= words[ j ].length();
+                    break;
                 }
-                one_line += std::string( maxWidth - total_length, ' ' );  
+                ++j;
+            }
+            if ( j == n ) {
+                line += words[ i ];
+                for ( int k = i + 1; k < j; ++k ) {
+                    line += ' ';
+                    line += words[ k ];
+                }
+                line.append( maxWidth - line.length(), ' ' );
             } else {
-                justify_one_line( words, start, i, total_length, maxWidth,
-                                  one_line );
+                int total_spaces = maxWidth - words_len;
+                int num_words = j - i;
+                if ( num_words == 1 ) {
+                    line += words[ i ];
+                    line.append( maxWidth - line.length(), ' ' );
+                } else {
+                    int spaces_between = total_spaces / ( num_words - 1 );
+                    int extra = total_spaces % ( num_words - 1 );
+                    line += words[ i ];
+                    for ( int k = i + 1; k < j; ++k ) {
+                        line.append( spaces_between + ( extra-- > 0 ), ' ' );
+                        line += words[ k ];
+                    }
+                }
             }
-            lines.push_back( one_line );
-            total_length = 0;
+            results.push_back( line );
+            i = j;
         }
-        return lines;
-    }
-private:
-    void justify_one_line( const std::vector< std::string > & words,
-                           const int                          start,
-                           const int                          end,
-                           const int                          total_length,
-                           const int                          max_width,
-                           std::string                      & one_line ) {
-        int num_words = end - start;
-        int num_spaces = max_width - total_length + num_words - 1;
-        if ( num_words == 1 ) {
-            one_line = words[ start ];
-            one_line += std::string( num_spaces, ' ' );
-        } else {
-            int k = start;
-            int x = num_words - 1;
-            one_line = words[ k++ ];
-            while ( k < end ) {
-                int s = num_spaces / x;
-                if ( num_spaces % x ) ++s;
-                one_line += std::string( s, ' ' );
-                one_line += words[ k++ ];
-                --x;
-                num_spaces -= s;
-            }
-        }
+        return results;
     }
 };
