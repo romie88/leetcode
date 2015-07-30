@@ -67,6 +67,8 @@ private:
             d  = ( d + x / d ) / 2.0;
         } while ( std::fabs( d - d2 ) > eps );
         
-        return static_cast< int >( d );
+        int result = static_cast< int >( d );
+        if ( result * result > x ) --result;
+        return result;
     }
 };
