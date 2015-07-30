@@ -55,7 +55,9 @@ private:
         return D[ w1.length() ][ w2.length() ];
     }
     /**
-     * Space optimized
+     * O( mn ) runtime, O( n ) space
+     * 
+     * Space optimized DP
      */
     int min_distance_dp2( const std::string & w1, const std::string & w2 ) {
         std::vector< int > D( w2.length() + 1, 0 );
