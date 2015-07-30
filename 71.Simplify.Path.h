@@ -29,6 +29,9 @@ public:
         return simplify_path_impl( path );
     }
 private:
+    /**
+     * O( n ) runtime, O( n ) space
+     */
     std::string simplify_path_impl( const std::string & path ) {
         if ( path.empty() || path[ 0 ] != '/' )
             throw std::invalid_argument( "invalid absolute path" );
