@@ -29,12 +29,16 @@ class Solution {
 public:
     bool searchMatrix( const std::vector< std::vector< int > > & matrix,
                        const int                                 target ) {
-        return search_matrix( matrix, target );
+        return search_matrix_impl_2( matrix, target );
     }
 private:
-    bool search_matrix( const std::vector< std::vector< int > > & matrix,
-                        const int                                 target ) {
+    /**
+     * O( lg m + lg n ) runtime
+     */
+    bool search_matrix_impl_1( const std::vector< std::vector< int > > & matrix,
+                               const int                                 target ) {
         const int m = matrix.size();
+        if ( m == 0 ) return false;
         const int n = matrix[ 0 ].size();
         int L = 0;
         int R = m - 1;
@@ -60,6 +64,26 @@ private:
                 R = M - 1;
             else
                 L = M + 1;
+        }
+        return false;
+    }
+    /**
+     * O( lg mn ) runtime
+     */
+    bool search_matrix_impl_2( const std::vector< std::vector< int > > & matrix,
+                               const int                                 target ) {
+        const int m = matrix.size();
+        if ( m == 0 ) return false;
+        const int n = matrix[ 0 ].size();
+        int L = 0;
+        int R = m * n - 1;
+        while ( L <= R ) {
+            int M = ( L + R ) / 2;
+            int r = M / n;
+            int c = M % n;
+            if ( target == matrix[ r ][ c ] ) return true;
+            else if ( target < matrix[ r ][ c ] ) R = M - 1;
+            else L = M + 1;
         }
         return false;
     }
