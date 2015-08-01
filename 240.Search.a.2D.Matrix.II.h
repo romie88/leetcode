@@ -64,7 +64,7 @@ private:
         const int m = matrix.size();
         if ( m == 0 ) return false;
         const int n = matrix[ 0 ].size();
-        return search_matrix_impl_DaC_helper( matrix, target, 0, 0, m - 1, n - 1 );
+        return search_matrix_impl_DaC_helper2( matrix, target, 0, 0, m - 1, n - 1 );
     }
     bool search_matrix_impl_DaC_helper(
             const std::vector< std::vector< int > > & matrix,
@@ -97,5 +97,33 @@ private:
             return search_matrix_impl_DaC_helper( matrix, target, mid_r, mid_c, r2, c2 )
                 || search_matrix_impl_DaC_helper( matrix, target, mid_r, c1, r2, mid_c - 1 )
                 || search_matrix_impl_DaC_helper( matrix, target, r1, mid_c, mid_r - 1, c2 );
+    }
+    /**
+     *
+     */
+    bool search_matrix_impl_DaC_helper2(
+            const std::vector< std::vector< int > > & matrix,
+            const int                                 target,
+            const int                                 r1,
+            const int                                 c1,
+            const int                                 r2,
+            const int                                 c2 ) {
+        
+        if ( r1 > r2 || c1 > c2 ) return false;
+        
+        if ( target < matrix[ r1 ][ c1 ] || target > matrix[ r2 ][ c2 ] )
+            return false;
+        
+        int mid_r = ( r1 + r2 ) / 2;
+        int mid_c = ( c1 + c2 ) / 2;
+        if ( target == matrix[ mid_r ][ mid_c ] ) return true;
+        else if ( target < matrix[ mid_r ][ mid_c ] )
+            return search_matrix_impl_DaC_helper( matrix, target, r1, c1, mid_r - 1, mid_c - 1 )
+                || search_matrix_impl_DaC_helper( matrix, target, mid_r, c1, r2, mid_c - 1 )
+                || search_matrix_impl_DaC_helper( matrix, target, r1, mid_c, mid_r - 1, c2 );
+        else
+            return search_matrix_impl_DaC_helper( matrix, target, mid_r + 1, mid_c + 1, r2, c2 )
+                || search_matrix_impl_DaC_helper( matrix, target, mid_r + 1, c1, r2, mid_c )
+                || search_matrix_impl_DaC_helper( matrix, target, r1, mid_c + 1, mid_r, c2 );
     }
 };
