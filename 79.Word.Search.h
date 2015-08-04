@@ -32,6 +32,15 @@ public:
         return exist_impl( board, word );
     }
 private:
+    /**
+     * O( m^2 * n^2 ) runtime, O( m * n ) space - DFS
+     *
+     * For each cell we do a DFS which has complexity O( E + V ) where
+     * E is the number of edges and V is the number of vertices. In this
+     * problem E and V are both m * n. Thus the runtime O( m * n * m * n )
+     * and the space is O( m * n ) a two-dimension array to log the visit
+     * status.
+     */
     bool search( const std::vector< std::vector< char > > & board,
                  const int                                  i,
                  const int                                  j,
