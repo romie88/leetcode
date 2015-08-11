@@ -43,7 +43,7 @@
 class Solution {
 public:
     int largestRectangleArea( const std::vector< int > & height ) {
-        return largest_rectangle_area_stack_impl_2( height );
+        return largest_rectangle_area_impl_DnC( height );
     }
 private:
     /**
@@ -80,6 +80,7 @@ private:
         }
         return max_area;
     }
+
     /**
      * O(n) runtime, O(n) space - implementation using stack, a better one
      */
@@ -108,5 +109,46 @@ private:
                 height[ j ] * ( i -  ( s.empty() ? 0 : s.top() + 1 ) ) );
         }
         return max_area;
+    }
+
+    /**
+     * O( n log n ) runtime - Divide and Conquer
+     */
+    int largest_rectangle_area_impl_DnC(
+            const std::vector< int > & height ) {
+        return largest_rectangle_area_impl_DnC_helper(
+                    height, 0, height.size() - 1 );
+    }
+    int largest_rectangle_area_impl_DnC_helper(
+            const std::vector< int > & height, int start, int end ) {
+        if ( start > end ) return 0;
+        if ( start == end ) return height[ start ];
+
+        int mid = ( start + end ) / 2;
+        int left_max_area = largest_rectangle_area_impl_DnC_helper(
+                height, start, mid );
+        int right_max_area = largest_rectangle_area_impl_DnC_helper(
+                height, mid + 1, end );
+
+        int i = mid;
+        int j = mid + 1;
+        int min_height = std::min( height[ i ], height[ j ] );
+        int cross_max_area = min_height * ( j - i + 1 );
+        while ( i >= start && j <= end ) {
+            min_height = std::min( min_height,
+                                   std::min( height[ i ], height[ j ] ) );
+            cross_max_area = std::max( cross_max_area,
+                                       min_height * ( j - i + 1 ) );
+            if ( i == start ) ++j;
+            else if ( j == end ) --i;
+            else {
+                if ( height[ i - 1 ] >= height[ j + 1 ] )
+                    --i;
+                else
+                    ++j;
+            }
+        }
+        return std::max( cross_max_area,
+                         std::max( left_max_area, right_max_area ) );
     }
 };
