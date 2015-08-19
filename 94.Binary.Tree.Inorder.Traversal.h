@@ -1,22 +1,29 @@
-//94 Binary Tree Inorder Traversal [ Medium ]
-//
-//Given a binary tree, return the inorder traversal of its nodes' values.
-//
-//For example:
-//Given binary tree {1,#,2,3},
-//   1
-//    \
-//     2
-//    /
-//   3
-//return [1,3,2].
-//
-//Note: Recursive solution is trivial, could you do it iteratively?
-//
-//confused what "{1,#,2,3}" means? > read more on how binary tree is
-//serialized on OJ.
-
-//Tags: Tree, Hash Table, Stack
+/**
+ * Algorithms 94 Binary Tree Inorder Traversal                           Medium
+ *
+ * Given a binary tree, return the inorder traversal of its nodes' values.
+ *
+ * For example:
+ * Given binary tree {1,#,2,3},
+ *    1
+ *     \
+ *      2
+ *     /
+ *    3
+ * return [1,3,2].
+ *
+ * Note: Recursive solution is trivial, could you do it iteratively?
+ *
+ * confused what "{1,#,2,3}" means? > read more on how binary tree is
+ * serialized on OJ.
+ *
+ * Tags: Tree, Hash Table, Stack
+ * Similar Problems: (M) Validate Binary Search Tree,
+ *                   (M) Binary Tree Preorder Traversal
+ *                   (H) Binary Tree Postorder Traversal
+ *                   (M) Binary Search Tree Iterator
+ *                   (M) Kth Smallest Element in a BST
+ */
 
 #include <vector>
 #include <stack>
@@ -33,32 +40,32 @@
 class Solution {
 
 public:
-    
+
     std::vector< int > inorderTraversal( TreeNode * root ) {
         std::vector< int > v;
         inorder_traversal_threaded( root, v );
         return v;
     }
-    
+
 private:
-    
+
     //straightforward recursive implementation
     void inorder_traversal_recursive(
             TreeNode * root,
             std::vector< int > & v ) {
-        
+
         if ( ! root ) return;
-        
+
         inorder_traversal_recursive( root->left, v );
         v.push_back( root->val );
         inorder_traversal_recursive( root->right, v );
     }
-    
+
     //iterative implementation using a stack explicitly
     void inorder_traversal_stack(
             TreeNode * p,
             std::vector< int > & v ) {
-        
+
         std::stack< TreeNode * > s;
         while ( p || ! s.empty() ) {
             if ( p ) {
@@ -72,7 +79,7 @@ private:
             }
         }
     }
-    
+
     //iterative implementation using Morris threaded binary tree
     //http://www.liacs.nl/~deutz/DS/september28.pdf
     void inorder_traversal_threaded(
@@ -94,7 +101,7 @@ private:
                 TreeNode * tmp = p->left;
                 while ( tmp->right && tmp->right != p )
                     tmp = tmp->right;
-                
+
                 if ( ! tmp->right ) {
                     tmp->right = p;
                     p = p->left;//keep going left
