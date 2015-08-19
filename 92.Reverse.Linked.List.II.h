@@ -1,18 +1,19 @@
 /**
  * Algorithms 92 Reverse Linked List II                                  Medium
- * 
+ *
  * Reverse a linked list from position m to n. Do it in-place and in one-pass.
- * 
+ *
  * For example:
  * Given 1->2->3->4->5->NULL, m = 2 and n = 4,
- * 
+ *
  * return 1->4->3->2->5->NULL.
- * 
+ *
  * Note:
  * Given m, n satisfy the following condition:
  * 1 ≤ m ≤ n ≤ length of list.
- * 
+ *
  * Tags: Linked List
+ * Similar Problems: (E) Reverse Linked List
  */
 
 /**
@@ -35,7 +36,7 @@ public:
             prev = curr;
             curr = curr->next;
         }
-        
+
         ListNode * prev2 = nullptr;
         ListNode * saved_curr = curr;
         while ( curr && n >= m_copy ) {
@@ -45,10 +46,10 @@ public:
             curr = curr_next;
             --n;
         }
-        
+
         prev->next = prev2;
         saved_curr->next = curr;
-        
+
         return dummy_head.next;
     }
 };
