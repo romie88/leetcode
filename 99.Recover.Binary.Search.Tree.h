@@ -1,21 +1,21 @@
 /**
  * Algorithms 99 Recover Binary Search Tree                                Hard
- * 
+ *
  * Two elements of a binary search tree (BST) are swapped by mistake.
- * 
+ *
  * Recover the tree without changing its structure.
- * 
+ *
  * Note:
  * A solution using O(n) space is pretty straight forward. Could you devise a
  * constant space solution?
  *
  * confused what "{1,#,2,3}" means? > read more on how binary tree is
  * serialized on OJ.
- * 
+ *
  * OJ's Binary Tree Serialization:
  * The serialization of a binary tree follows a level order traversal, where
  * '#' signifies a path terminator where no node exists below.
- * 
+ *
  * Here's an example:
  *    1
  *   / \
@@ -25,8 +25,8 @@
  *     \
  *     5
  * The above binary tree is serialized as "{1,2,3,#,#,4,#,#,5}".
- * 
- * Tags:
+ *
+ * Tags: Tree, Depth-first Search
  */
 
 #include <algorithm>
@@ -59,7 +59,7 @@ private:
      *
      * Implementation is omitted.
      */
-    
+
     /**
      * O( n ) runtime, O( log n ) stack space
      * Inorder traversal by recursion and prev TreeNode *.
@@ -69,7 +69,7 @@ private:
                                       TreeNode * & p1,
                                       TreeNode * & p2 ) {
         if ( p == nullptr ) return;
-        
+
         recover_tree_recursive_impl( p->left, prev, p1, p2 );
         if ( prev != nullptr && prev->val > p->val ) {
             if ( p1 == nullptr ) {
@@ -90,7 +90,7 @@ private:
         recover_tree_recursive_impl( p, prev, p1, p2 );
         std::swap( p1->val, p2->val );
     }
-    
+
     /**
      * O( n ) runtime, O( 1 ) space
      * Morris threaded BST inorder traversal
@@ -108,7 +108,7 @@ private:
                 TreeNode * tmp = p->left;
                 while ( tmp->right && tmp->right != p )
                     tmp = tmp->right;
-                
+
                 if ( tmp->right == nullptr ) {
                     tmp->right = p;
                     p = p->left;
