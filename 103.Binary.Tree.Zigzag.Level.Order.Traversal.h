@@ -1,40 +1,43 @@
-//103 Binary Tree Zigzag Level Order Traversal [ Medium ]
-//
-//Given a binary tree, return the zigzag level order traversal of its nodes'
-//values. (ie, from left to right, then right to left for the next level and
-//alternate between).
-//
-//For example:
-//Given binary tree {3,9,20,#,#,15,7},
-//    3
-//   / \
-//  9  20
-//    /  \
-//   15   7
-//return its zigzag level order traversal as:
-//[
-//  [3],
-//  [20,9],
-//  [15,7]
-//]
-//confused what "{1,#,2,3}" means? > read more on how binary tree is
-//serialized on OJ.
-//
-//OJ's Binary Tree Serialization:
-//The serialization of a binary tree follows a level order traversal, where
-//'#' signifies a path terminator where no node exists below.
-//
-//Here's an example:
-//   1
-//  / \
-// 2   3
-//    /
-//   4
-//    \
-//     5
-//The above binary tree is serialized as "{1,2,3,#,#,4,#,#,5}".
-
-//Tags: Tree, Breath-first Search, Stack
+/**
+ * Algorithms 103 Binary Tree Zigzag Level Order Traversal               Medium
+ *
+ * Given a binary tree, return the zigzag level order traversal of its nodes'
+ * values. (ie, from left to right, then right to left for the next level and
+ * alternate between).
+ *
+ * For example:
+ * Given binary tree {3,9,20,#,#,15,7},
+ *     3
+ *    / \
+ *   9  20
+ *     /  \
+ *    15   7
+ * return its zigzag level order traversal as:
+ * [
+ *  [3],
+ *  [20,9],
+ *  [15,7]
+ * ]
+ * confused what "{1,#,2,3}" means? > read more on how binary tree is
+ * serialized on OJ.
+ *
+ * OJ's Binary Tree Serialization:
+ * The serialization of a binary tree follows a level order traversal, where
+ * '#' signifies a path terminator where no node exists below.
+ *
+ * Here's an example:
+ *    1
+ *   / \
+ *  2   3
+ *     /
+ *    4
+ *     \
+ *      5
+ * The above binary tree is serialized as "{1,2,3,#,#,4,#,#,5}".
+ *
+ * Tags: Tree, Breath-first Search, Stack
+ * Similar Problems: (E) Binary Tree Level Order Traversal
+ */
 
 #include <vector>
 #include <queue>
@@ -60,15 +63,19 @@ public:
     }
 
 private:
-    
-    //Use a queue. To seperate the levels, use nullptr as the end indicator
-    //of one level.
+
+    /**
+     * O( n ) runtime, O( n ) space
+     *
+     * Use a queue. To seperate the levels, use nullptr as the end indicator
+     * of one level.
+     */
     void zigzag_level_order_queue(
-            TreeNode * root,
+            TreeNode                          * root,
             std::vector< std::vector< int > > & levels ) {
-        
+
         if ( ! root ) return;
-        
+
         bool left_to_right = true;
         std::queue< TreeNode * > q;
         q.push( root );
@@ -94,8 +101,11 @@ private:
             }
         }
     }
-    
-    //DFS
+
+    /**
+     * O( n ) runtime, O( n ) space - normal DFS to finish level order traversal
+     * and reverse the odd indexed level results.
+     */
     void zigzag_level_order_DFS(
             TreeNode * root,
             std::vector< std::vector< int > > & levels ) {
@@ -115,14 +125,16 @@ private:
         level_order_DFS_impl( root->left, levels, level + 1 );
         level_order_DFS_impl( root->right, levels, level + 1 );
     }
-    
-    //Annie Kim github
+
+    /**
+     * O( n ) runtime, O( n ) space - beautiful two stack implementation
+     */
     void zigzag_level_order_two_stacks(
             TreeNode * root,
             std::vector< std::vector< int > > & levels ) {
-        
+
         if ( ! root ) return;
-        
+
         bool left_to_right = true;
         std::stack< TreeNode * > s[ 2 ];
         int last = 0;
