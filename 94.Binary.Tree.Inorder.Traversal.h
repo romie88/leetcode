@@ -22,7 +22,7 @@
  *                   (M) Binary Tree Preorder Traversal
  *                   (H) Binary Tree Postorder Traversal
  *                   (M) Binary Search Tree Iterator
- *                   (M) Kth Smallest Element in a BST
+ *                   (M) Kth Smallest Element in a BSTd
  */
 
 #include <vector>
@@ -49,7 +49,9 @@ public:
 
 private:
 
-    //straightforward recursive implementation
+    /**
+     * straightforward recursive implementation
+     */
     void inorder_traversal_recursive(
             TreeNode * root,
             std::vector< int > & v ) {
@@ -61,7 +63,9 @@ private:
         inorder_traversal_recursive( root->right, v );
     }
 
-    //iterative implementation using a stack explicitly
+    /**
+     * iterative implementation using a stack explicitly
+     */
     void inorder_traversal_stack(
             TreeNode * p,
             std::vector< int > & v ) {
@@ -80,8 +84,10 @@ private:
         }
     }
 
-    //iterative implementation using Morris threaded binary tree
-    //http://www.liacs.nl/~deutz/DS/september28.pdf
+    /**
+     * iterative implementation using Morris threaded binary tree
+     * http://www.liacs.nl/~deutz/DS/september28.pdf
+     */
     void inorder_traversal_threaded(
             TreeNode * p,
             std::vector< int > & v ) {

@@ -1,19 +1,23 @@
-//144 Binary Tree Preorder Traversal [ Medium ]
-//
-//Given a binary tree, return the preorder traversal of its nodes' values.
-//
-//For example:
-//Given binary tree {1,#,2,3},
-//   1
-//    \
-//     2
-//    /
-//   3
-//return [1,2,3].
-//
-//Note: Recursive solution is trivial, could you do it iteratively?
-
-//Tags: Tree, Stack
+/**
+ * Algorithms 144 Binary Tree Preorder Traversal                         Medium
+ *
+ * Given a binary tree, return the preorder traversal of its nodes' values.
+ *
+ * For example:
+ * Given binary tree {1,#,2,3},
+ *    1
+ *     \
+ *      2
+ *     /
+ *    3
+ * return [1,2,3].
+ *
+ * Note: Recursive solution is trivial, could you do it iteratively?
+ *
+ * Tags: Tree, Stack
+ * Similar Problems: (M) Binary Tree Inorder Traversal,
+ *                   (M) Verify Preorder Sequence in Binary Search Tree
+ */
 
 #include <vector>
 #include <stack>
@@ -38,22 +42,26 @@ public:
     }
 
 private:
-    
-    //straightforward recursive implementation
+
+    /**
+     * straightforward recursive implementation
+     */
     void preorder_traversal_recursive(
-            TreeNode * p,
+            TreeNode           * p,
             std::vector< int > & v ) {
-        
+
         if ( ! p ) return;
-        
+
         v.push_back( p->val );
         preorder_traversal_recursive( p->left,  v );
         preorder_traversal_recursive( p->right, v );
     }
-    
-    //iterative implementation using a stack explicitly
-    void preorder_traversal_stack(
-            TreeNode * p,
+
+    /**
+     * iterative implementation using a stack explicitly
+     */
+    void preorder_traversal_iterative_by_one_stack(
+            TreeNode           * p,
             std::vector< int > & v ) {
 
         std::stack< TreeNode * > s;
@@ -69,13 +77,15 @@ private:
             }
         }
     }
-    
-    //iterative implementation using a stack explicitly
-    //http://www.geeksforgeeks.org/iterative-preorder-traversal/
-    void preorder_traversal_stack2(
-            TreeNode * p,
+
+    /**
+     * yet another iterative implementation using a stack explicitly
+     * http://www.geeksforgeeks.org/iterative-preorder-traversal/
+     */
+    void preorder_traversal_iterative_by_one_stack_2(
+            TreeNode           * p,
             std::vector< int > & v ) {
-        
+
         if ( ! p ) return;
 
         std::stack< TreeNode * > s;
@@ -85,7 +95,7 @@ private:
             p = s.top();
             s.pop();
             v.push_back( p->val );
-            
+
             if ( p->right )
                 s.push( p->right );
             if ( p->left )
@@ -93,10 +103,12 @@ private:
         }
     }
 
-    //iterative implementation using Morris threaded binary tree
-    //http://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
-    void preorder_traversal_threaded(
-            TreeNode * p,
+    /**
+     * iterative implementation using Morris threaded binary tree
+     * http://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
+     */
+    void preorder_traversal_iterative_by_morris_threaded_tree(
+            TreeNode           * p,
             std::vector< int > & v ) {
 
         while ( p ) {
@@ -107,7 +119,7 @@ private:
                 TreeNode * tmp = p->left;
                 while ( tmp->right && tmp->right != p )
                     tmp = tmp->right;
-                
+
                 if ( ! tmp->right ) {
                     tmp->right = p;
                     //different from inorder
@@ -120,5 +132,5 @@ private:
             }
         }
     }
-    
+
 };
