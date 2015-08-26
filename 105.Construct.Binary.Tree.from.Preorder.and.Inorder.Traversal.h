@@ -1,12 +1,14 @@
-//105 Construct Binary Tree from Preorder and Inorder Traversal [ Medium ]
-//2012-09-30 Medium
-//
-//Given preorder and inorder traversal of a tree, construct the binary tree.
-//
-//Note:
-//You may assume that duplicates do not exist in the tree.
-
-//Tags: Tree, Array, Depth-first Search
+/**
+ * Algorithms 105 Construct Binary Tree from Preorder and Inorder Traversal   Medium
+ *
+ * Given preorder and inorder traversal of a tree, construct the binary tree.
+ *
+ * Note:
+ * You may assume that duplicates do not exist in the tree.
+ *
+ * Tags: Tree, Array, Depth-first Search
+ * Similar Problems: (M) Construct Binary Tree from Inorder and Postorder Traversal
+ */
 
 #include <vector>
 #include <stdexcept>
@@ -27,7 +29,7 @@ public:
 
         if ( preorder.size() != inorder.size() )
             throw std::out_of_range( "preorder and inorder have different sizes" );
-        
+
         TreeNode * root = build_tree_impl( preorder, 0, preorder.size(),
                                            inorder,  0, inorder.size() );
 
@@ -36,7 +38,7 @@ public:
 private:
     TreeNode * build_tree_impl( const std::vector< int > & preorder, int s1, int e1,
                                 const std::vector< int > & inorder,  int s2, int e2 ) {
-        
+
         if ( s1 >= e1 ) return nullptr;
 
         TreeNode * root = new TreeNode( preorder[ s1 ] );
@@ -48,7 +50,7 @@ private:
 
         root->left  = build_tree_impl( preorder, s1 + 1, s1 + 1 + ( i - s2 ),
                                        inorder, s2, i );
-        root->right = build_tree_impl( preorder, e1 - ( e2 - i - 1 ), e1, 
+        root->right = build_tree_impl( preorder, e1 - ( e2 - i - 1 ), e1,
                                        inorder, i + 1, e2 );
 
         return root;
