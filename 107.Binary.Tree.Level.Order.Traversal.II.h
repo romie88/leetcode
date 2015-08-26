@@ -1,39 +1,42 @@
-//107 Binary Tree Level Order Traversal II [ Easy ]
-//
-//Given a binary tree, return the bottom-up level order traversal of its
-//nodes' values. (ie, from left to right, level by level from leaf to root).
-//
-//For example:
-//Given binary tree {3,9,20,#,#,15,7},
-//    3
-//   / \
-//  9  20
-//    /  \
-//   15   7
-//return its bottom-up level order traversal as:
-//[
-//  [15,7],
-//  [9,20],
-//  [3]
-//]
-//confused what "{1,#,2,3}" means? > read more on how binary tree is
-//serialized on OJ.
-//
-//OJ's Binary Tree Serialization:
-//The serialization of a binary tree follows a level order traversal, where
-//'#' signifies a path terminator where no node exists below.
-//
-//Here's an example:
-//   1
-//  / \
-// 2   3
-//    /
-//   4
-//    \
-//     5
-//The above binary tree is serialized as "{1,2,3,#,#,4,#,#,5}".
-
-//Tags: Tree, Breath-first Search
+/**
+ * Algorithms 107 Binary Tree Level Order Traversal II                     Easy
+ *
+ * Given a binary tree, return the bottom-up level order traversal of its
+ * nodes' values. (ie, from left to right, level by level from leaf to root).
+ *
+ * For example:
+ * Given binary tree {3,9,20,#,#,15,7},
+ *     3
+ *    / \
+ *   9  20
+ *     /  \
+ *    15   7
+ * return its bottom-up level order traversal as:
+ * [
+ *   [15,7],
+ *   [9,20],
+ *   [3]
+ * ]
+ * confused what "{1,#,2,3}" means? > read more on how binary tree is
+ * serialized on OJ.
+ *
+ * OJ's Binary Tree Serialization:
+ * The serialization of a binary tree follows a level order traversal, where
+ * '#' signifies a path terminator where no node exists below.
+ *
+ * Here's an example:
+ *    1
+ *   / \
+ *  2   3
+ *     /
+ *    4
+ *     \
+ *      5
+ * The above binary tree is serialized as "{1,2,3,#,#,4,#,#,5}".
+ *
+ * Tags: Tree, Breath-first Search
+ * Similar Problems: (E) Binary Tree Level Order Traversal
+ */
 
 #include <vector>
 #include <algorithm>
@@ -55,13 +58,15 @@ public:
         level_order_bottom_queue( root, levels );
         return levels;
     }
-    
+
 private:
-    
-    //Use a queue. To seperate the levels, use nullptr as the end indicator
-    //of one level.
+
+    /**
+     * Use a queue. To seperate the levels, use nullptr as the end indicator
+     * of one level.
+     */
     void level_order_bottom_queue(
-            TreeNode * root,
+            TreeNode                          * root,
             std::vector< std::vector< int > > & levels ) {
 
         if ( ! root ) return;
