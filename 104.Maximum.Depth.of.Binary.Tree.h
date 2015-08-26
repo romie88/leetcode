@@ -26,7 +26,7 @@
 class Solution {
 public:
     int maxDepth( TreeNode * root ) {
-        max_depth_iterative_postorder_traversal( root );
+        max_depth_iterative_postorder_traversal_2( root );
     }
 private:
     /**
@@ -109,6 +109,35 @@ private:
                     p = p->right;
                 }
             }
+        }
+        return max_depth;
+    }
+
+    /**
+     * O( n ) runtime, O( n ) space - another iterative postorder traversal
+     */
+    int max_depth_iterative_postorder_traversal_2( TreeNode * root ) {
+        if ( root == nullptr ) return 0;
+        std::stack< TreeNode * > s;
+        s.push( root );
+        int max_depth = 0;
+        TreeNode * prev = nullptr;
+        while ( ! s.empty() ) {
+            TreeNode * curr = s.top();
+            if ( prev == nullptr || prev->left == curr || prev->right == curr ) {
+                if ( curr->left )
+                    s.push( curr->left );
+                else if ( curr->right )
+                    s.push( curr->right );
+            } else if ( curr->left == prev ) {
+                if ( curr->right )
+                    s.push( curr->right );
+            } else {
+                s.pop();
+            }
+            prev = curr;
+            if ( s.size() > max_depth )
+                max_depth = s.size();
         }
         return max_depth;
     }

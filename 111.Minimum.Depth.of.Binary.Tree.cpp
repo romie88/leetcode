@@ -1,11 +1,15 @@
-//111 Minimum Depth of Binary Tree [ Easy ]
-//
-//Given a binary tree, find its minimum depth.
-//
-//The minimum depth is the number of nodes along the shortest path from the
-//root node down to the nearest leaf node.
-//
-//Tags: Tree, Depth-first Search
+/**
+ * Algorithms 111 Minimum Depth of Binary Tree                             Easy
+ *
+ * Given a binary tree, find its minimum depth.
+ *
+ * The minimum depth is the number of nodes along the shortest path from the
+ * root node down to the nearest leaf node.
+ *
+ * Tags: Tree, Depth-first Search
+ * Similar Problems: (E) Binary Tree Level Order Traversal,
+ *                   (E) Maximum Depth of Binary Tree
+ */
 
 #include <algorithm>
 #include <queue>
@@ -22,20 +26,39 @@
 class Solution {
 public:
     int minDepth( TreeNode * root ) {
-        return min_depth_impl_bfs( root );
+        return min_depth_level_order_traversal( root );
     }
 private:
+    /**
+     * O( n ) runtime, O( n ) space - recursive implementation
+     */
+    int min_depth_recursive( TreeNode * root ) {
+        if ( root == nullptr ) return 0;
 
-    int min_depth_impl_1( TreeNode * root ) {
+        if ( root->left ) {
+            if ( root->right )
+                return 1 + std::min( min_depth_recursive( root->left ),
+                                     min_depth_recursive( root->right ) );
+            else
+                return 1 + min_depth_recursive( root->left );
+        } else {
+            if ( root->right )
+                return 1 + min_depth_recursive( root->right );
+            else
+                return 1;
+        }
+    }
+
+    int min_depth_recursive_2( TreeNode * root ) {
         if ( ! root ) return 0;
-        
+
         int left_min_depth = -1;
         if ( root->left )
-            left_min_depth = min_depth_impl_1( root->left );
-        
+            left_min_depth = min_depth_recursive_2( root->left );
+
         int right_min_depth = -1;
         if ( root->right )
-            right_min_depth = min_depth_impl_1( root->right );
+            right_min_depth = min_depth_recursive_2( root->right );
 
         if ( left_min_depth > -1 ) {
             if ( right_min_depth > -1 ) {
@@ -52,20 +75,22 @@ private:
         }
     }
 
-    int min_depth_impl_2( TreeNode * root ) {
+    int min_depth_recursive_3( TreeNode * root ) {
         if ( ! root ) return 0;
 
-        if ( ! root->left ) return 1 + min_depth_impl_2( root->right );
-        if ( ! root->right ) return 1 + min_depth_impl_2( root->left );
-        
-        return 1 + std::min( min_depth_impl_2( root->left ),
-                             min_depth_impl_2( root->right ) );
+        if ( ! root->left ) return 1 + min_depth_recursive_3( root->right );
+        if ( ! root->right ) return 1 + min_depth_recursive_3( root->left );
+
+        return 1 + std::min( min_depth_recursive_3( root->left ),
+                             min_depth_recursive_3( root->right ) );
     }
 
-    int min_depth_impl_bfs( TreeNode * root ) {
-        
+    /**
+     * O( n ) runtime, O( n ) space - level order traversal
+     */
+    int min_depth_level_order_traversal( TreeNode * root ) {
         if ( ! root ) return 0;
-        
+
         std::queue< TreeNode * > q;
         q.push( root );
         int depth = 1;
