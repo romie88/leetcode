@@ -1,9 +1,12 @@
-//108 Convert Sorted Array to Binary Search Tree [ Medium ]
-//
-//Given an array where elements are sorted in ascending order, convert it to
-//a height balanced BST.
-
-//Tags: Tree, Depth-first Search
+/**
+ * Algorithms 108 Convert Sorted Array to Binary Search Tree             Medium
+ *
+ * Given an array where elements are sorted in ascending order, convert it to
+ * a height balanced BST.
+ *
+ * Tags: Tree, Depth-first Search
+ * Similar Problems: (M) Convert Sorted List to Binary Search Tree
+ */
 
 #include <vector>
 
