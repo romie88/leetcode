@@ -31,6 +31,9 @@ public:
         return shortest_distance( words, word1, word2 );
     }
 private:
+    /**
+     * O( n ) runtime, O( 1 ) space
+     */
     int shortest_distance( const std::vector< std::string > & words,
                            const std::string                & word1,
                            const std::string                & word2 ) {
