@@ -1,5 +1,5 @@
 /**
- * Algorithms 242 Valid Anagram                                          Medium
+ * Algorithms 242 Valid Anagram                                            Easy
  * 
  * Given two strings s and t, write a function to determine if t is an anagram
  * of s.
